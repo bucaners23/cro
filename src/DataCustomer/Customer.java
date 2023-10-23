@@ -19,6 +19,8 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Customer {
 
@@ -40,6 +42,7 @@ public class Customer {
 	ArrayList<customerclass> lista;
 	private JButton btnAgr;
 	private JButton btnAct;
+	private JLabel txtId;
 
 	public static void main(String[] args) {
 		Customer x = new Customer();
@@ -254,6 +257,24 @@ public class Customer {
 		frmCustomer.getContentPane().add(scrollPane);
 
 		tblD = new JTable();
+		tblD.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				fila=tblD.getSelectedRow();
+				x=lista.get(fila);
+				txtId.setText(""+x.getCustomerid());
+				txtComN.setText(""+x.getCompany_name());
+				txtConN.setText(""+x.getContact_name());
+				txtConT.setText(""+x.getContact_title());
+				txtAdd.setText(""+x.getAddress());
+				txtCit.setText(""+x.getCity());
+				txtReg.setText(""+x.getRegion());
+				txtPosC.setText(""+x.getPostal_code());
+				txtCou.setText(""+x.getCountry());
+				txtPho.setText(""+x.getPhone());
+				txtFox.setText(""+x.getFax());
+			}
+		});
 		m.addColumn("Costumerid");
 		m.addColumn("Company name");
 		m.addColumn("Contact name");
@@ -267,6 +288,11 @@ public class Customer {
 		m.addColumn("Fax");
 		tblD.setModel(m);
 		scrollPane.setViewportView(tblD);
+		
+		txtId = new JLabel("Id");
+		txtId.setFont(new Font("Tahoma", Font.BOLD, 15));
+		txtId.setBounds(156, 27, 129, 19);
+		frmCustomer.getContentPane().add(txtId);
 	}
 	
 }
